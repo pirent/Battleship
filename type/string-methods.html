@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>String methods</title>
+</head>
+<body>
+	<script>
+		console.log("=== The length property and charAt() ===");
+		var input = "jenny@wickedlysmart.com";
+		for (var i = 0; i < input.length; i+=1) {
+			if (input.charAt(i) === '@') {
+				console.log("There's an @sign at index " + i);
+			}
+		}
+
+		console.log("=== The indexOf() ===");
+		var phrase = "the cat in the hat";
+		var index = phrase.indexOf("cat");
+		console.log("There's a cat sitting at index " + index);
+		index = phrase.indexOf("dog");
+		console.log("There's a dog sitting at index " + index);
+		index = phrase.indexOf("the", 5);
+		console.log("There's a the setting at index " + index);
+
+		console.log("=== The substring() ===");
+		var data = "name|phone|address";
+		var val = data.substring(5, 10);
+		console.log("Substring is " + val);
+		val = data.substring(5);
+		console.log("Substring is now " + val);
+
+		console.log("=== The split() method ===");
+		var data = "name|phone|address";
+		var vals = data.split("|");
+		console.log("Split array is ", vals);
+	</script>
+</body>
+</html>
