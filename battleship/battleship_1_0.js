@@ -24,9 +24,9 @@ var model = {
 	numShips: 3,
 	shipLength: 3,
 	shipSunk: 0,
-	ships: [{ locations: ["06", "16", "26"], hits: ["", "", ""] },
-			 { locations: ["24", "34", "44"], hits: ["", "", ""] },
-			 { locations: ["10", "11", "12"], hits: ["", "", ""] }],
+	ships: [{ locations: [0, 0, 0], hits: ["", "", ""] },
+			 { locations: [0, 0, 0], hits: ["", "", ""] },
+			 { locations: [0, 0, 0], hits: ["", "", ""] }],
 
 	fire: function(guess) {
 		for (var i = 0; i < this.numShips; i++) {
@@ -55,6 +55,60 @@ var model = {
 			}
 		}
 		return true;
+	},
+
+	generateShipLocations: function() {
+		var locations;
+		for (var i = 0; i < this.numShips; i += 1) {
+			do {
+				locations = this.generateShip();
+			}
+			while (this.collision(locations));
+			this.ships[i].locations = locations;
+		}
+	},
+
+	generateShip: function() {
+		var direction = Math.floor(Math.random() * 2);
+		var row;
+		var col;
+
+		if (direction === 1) {
+			// Generate a starting location for a horizontal ship
+			row = Math.floor(Math.random() * this.boardSize);
+			col = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+		}
+		else {
+			// Generate a starting location for a vertical ship
+			row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+			col = Math.floor(Math.random() * this.boardSize);
+		}
+
+		var newShipLocations = [];
+		for (var i = 0; i < this.shipLength; i += 1) {
+			if (direction === 1) {
+				// Add location to array for new horizontal ship
+				newShipLocations.push(row + "" + (col + i));
+			}
+			else {
+				// Add location to arry for new vertical ship
+				newShipLocations.push((row + i) + "" + col);
+			}
+		}
+
+		return newShipLocations;
+	},
+
+	collision: function(locations) {
+		for (var i = 0; i < this.numShips; i += 1) {
+			var ship = model.ships[i];
+			for (var j = 0; j < locations.length; j += 1) {
+				if (ship.locations.indexOf(locations[j]) >= 0) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 };
 
@@ -62,7 +116,14 @@ var controller = {
 	guesses: 0,
 
 	processGuess: function(guess) {
-
+		var location = this.parseGuess(guess);
+		if (location) {
+			this.guesses += 1;
+			var hit = model.fire(location);
+			if (hit && model.shipSunk === model.numShips) {
+				view.displayMessage("You sank all my battleship, in " + this.guesses + " guesses");
+			}
+		}
 	},
 
 	parseGuess: function(guess) {
@@ -81,13 +142,43 @@ var controller = {
 			}
 			else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize) {
 				alert("Oops. that's off the board!");
-			} else {
+			} 
+			else {
 				return row + column;	// concat number and string so we'll end up with a string
 			}
 		}
 		return null;
 	}
 };
+
+function init() {
+	var fireButton = document.getElementById("fireButton");
+	fireButton.onclick = handleFireButton;
+	var guessInput = document.getElementById("guessInput");
+	guessInput.onkeypress = handleKeyPress;
+
+	model.generateShipLocations();
+}
+
+function handleFireButton() {
+	var guessInput = document.getElementById("guessInput");
+	var guess = guessInput.value;
+	controller.processGuess(guess);
+
+	guessInput.value = "";
+}
+
+function handleKeyPress(e) {
+	var fireButton = document.getElementById("fireButton");
+	if (e.keyCode === 13) {
+		fireButton.click();
+
+		// Return false so the form doesn't do anything else (like try to submit itself)
+		return false;
+	}
+}
+
+window.onload = init;
 
 // ============== TESTING ====================== ||
 // ======== FOR VIEW OBJECT ======== ||
@@ -101,20 +192,32 @@ var controller = {
 // view.displayMessage("Tap tap, is this thing on?")
 
 // ======== FOR MODEL OBJECT ======== ||
-model.fire("53");
-model.fire("06");
-model.fire("16");
-model.fire("26");
-model.fire("34");
-model.fire("24");
-model.fire("44");
-model.fire("12");
-model.fire("11");
-model.fire("10");
+// model.fire("53");
+// model.fire("06");
+// model.fire("16");
+// model.fire("26");
+// model.fire("34");
+// model.fire("24");
+// model.fire("44");
+// model.fire("12");
+// model.fire("11");
+// model.fire("10");
 
 // ======== FOR CONTROLLER OBJECT ======== ||
-console.log(controller.parseGuess("A0"));
-console.log(controller.parseGuess("B6"));
-console.log(controller.parseGuess("G3"));
-console.log(controller.parseGuess("H0"));
-console.log(controller.parseGuess("A7"));
+// console.log(controller.parseGuess("A0"));
+// console.log(controller.parseGuess("B6"));
+// console.log(controller.parseGuess("G3"));
+// console.log(controller.parseGuess("H0"));
+// console.log(controller.parseGuess("A7"));
+
+// controller.processGuess("A0");
+// controller.processGuess("A6");
+// controller.processGuess("B6");
+// controller.processGuess("C6");
+// controller.processGuess("C4");
+// controller.processGuess("D4");
+// controller.processGuess("E4");
+// controller.processGuess("B0");
+// controller.processGuess("B1");
+// controller.processGuess("B2");
+
