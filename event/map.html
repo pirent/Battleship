@@ -12,8 +12,8 @@
         
         function showCoords(event) {
             var map = document.getElementById("coords");
-            var x = event.pageX;
-            var y = event.pageY;
+            var x = event.clientX;
+            var y = event.clientY;
             map.innerHTML = "Map coordinates: " + x + ", " + y;
         }
     </script>
