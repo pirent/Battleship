@@ -16,19 +16,20 @@
             function init() {
                 var images = document.getElementsByTagName("img");
                 for (var i = 0; i < images.length; i += 1) {
-                    images[i].onclick = showAnswer;
+                    images[i].onmouseover = showAnswer;
+                    images[i].onmouseout = reblur;
                 }
             }
+s
             function showAnswer(event) {
                 var image = event.target;
 
                 var name = image.id + '.jpg';
                 image.src = name;
-
-                window.setTimeout(reblur, 2000, image);
             }
 
-            function reblur(image) {
+            function reblur(event) {
+                var image = event.target;
                 var name = image.id + "blur.jpg";
                 image.src = name;
             }
