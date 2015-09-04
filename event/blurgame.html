@@ -19,9 +19,11 @@
                     images[i].onclick = showAnswer;
                 }
             }
-            function showAnswer() {
-                var image = document.getElementById("zero");
-                image.src = "zero.jpg";
+            function showAnswer(event) {
+                var image = event.target;
+
+                var name = image.id + '.jpg';
+                image.src = name;
             }
         </script>
     </head>
