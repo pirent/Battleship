@@ -12,7 +12,7 @@
         var passengers = [
 			{ name: 'Bruce Wayne', paid: true, ticket: "coach" },
 			{ name: 'Clark Kaine', paid: true, ticket: "firstclass" },
-			{ name: 'Ra Ah Gun', paid: false, ticket: "firstclass" },
+			{ name: 'Ra Ah Gun', paid: false, ticket: "premium" },
 			{ name: 'Dr. Evel', paid: true, ticket: "coach" }                    
         ];
 
@@ -44,7 +44,7 @@
 
         function servePassengers(passengers) {
         	for (var i = 0; i < passengers.length; i += 1) {
-        		serveCustomer(passenger);
+        		serveCustomer(passengers[i]);
         	}
         }
 
@@ -54,6 +54,8 @@
         	getDrinkOrderFunction();
 
         	// get dinner order
+            var getDinnerOrderFunction = createDinnerOrderFunction(passenger);
+            getDinnerOrderFunction();
         	getDrinkOrderFunction();
         	getDrinkOrderFunction();
 
@@ -66,11 +68,16 @@
         function createDrinkOrder(passenger) {
         	var orderFunction;
 
-        	if (passenger.ticket === "firstclass"); {
+        	if (passenger.ticket === "firstclass") {
         		orderFunction = function() {
         			alert("Would you like a cocktail or wine?");
         		};
         	}
+            else if (passenger.ticket === "premium") {
+                orderFunction = function() {
+                    alert("Your choice is wine, cola or water.");
+                };
+            }
         	else {
         		orderFunction = function() {
         			alert("Your choice is cola or water.");
@@ -78,6 +85,28 @@
         	}
 
         	return orderFunction;
+        }
+
+        function createDinnerOrderFunction(passenger) {
+            var orderFunction;
+
+            if (passenger.ticket === "firstclass") {
+                orderFunction = function() {
+                    alert("Would you like a chicken or pasta?");
+                };
+            }
+            else if (passenger.ticket === "premium") {
+                orderFunction = function() {
+                    alert("Your choice is snack box or cheese plate.");
+                };
+            }
+            else {
+                orderFunction = function() {
+                    alert("Your choice is peanuts or pretzels.");
+                };
+            }
+
+            return orderFunction;
         }
 
         var allCanFly = processPassengers(passengers, checkNoFlyList);
