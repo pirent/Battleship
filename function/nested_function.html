@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>Nested function</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var migrating = true;
+		var fly = function(num) {
+			var sound = "Flying";
+			function wingFlapper() {
+				console.log(sound);
+			}
+			for (var i = 0; i < num; i +=1) {
+				wingFlapper();
+			}
+		};
+		function quack(num) {
+			var sound = "Quack";
+			var quacker = function() {
+				console.log(sound);
+			};
+			for (var i = 0; i < num; i += 1) {
+				quacker();
+			}
+		}
+		if (migrating) {
+			quack(4);
+			fly(4);
+		}
+	</script>
+</body>
+</html>

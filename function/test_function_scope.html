@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>Function scope</title>
+</head>
+<body>
+	<script type="text/javascript">
+		console.log("Declaration before: " + declaration);
+		console.log("Expression before: " + expression);
+		function declaration() {
+			console.log("Function declaration");
+		}
+
+		var expression = function() {
+			console.log("Function expression");
+		}
+
+		console.log("Declaration after: " + declaration);
+		console.log("Expression after: " + expression);
+	</script>
+</body>
+</html>
