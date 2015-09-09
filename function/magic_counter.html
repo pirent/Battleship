@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Closure Test Drive</title>
+</head>
+<body>
+	<script>
+		console.log(" ================================ ");
+		console.log(" MAKE COUNTER ");
+		console.log(" ================================ ");
+
+		function makeCounter() {
+			var count = 0;
+
+			function counter() {
+				count = count + 1;
+				return count;
+			}
+
+			return counter;
+		}
+
+		var doCount = makeCounter();
+		console.log(doCount());
+		console.log(doCount());
+		console.log(doCount());
+
+		console.log(" ================================ ");
+		console.log(" GUESS PASSWORD ");
+		console.log(" ================================ ");
+
+		/**
+		* Takes a password as an argumet and returns a function that
+		* accepts a password guess and return true if the guess matches
+		* the password.
+		*/
+		function makePassword(password) {
+			return function (passwordGuess) {
+				return passwordGuess === password;
+			};
+		}
+
+		var tryGuess = makePassword('abc');
+		console.log("Guessing 'def': " + tryGuess('def'));
+		console.log("Guessing 'abd': " + tryGuess('abd'));
+		console.log("Guessing 'abc': " + tryGuess('abc'));
+
+		console.log(" ================================ ");
+		console.log(" MULTI BY N ");
+		console.log(" ================================ ");
+
+		/**
+		* Takes a number (call it n) and returns a function.
+		* That function itself takes a number, multiplies it 
+		* by n and returns the result.
+		*/
+		function multN(n) {
+			return function (number) {
+				return number * n;
+			};
+		}
+
+		var multBy10 = multN(10);
+		console.log("Multiplying 1: " + multBy10(1));
+		console.log("Multiplying 2: " + multBy10(2));
+		console.log("Multiplying 100: " + multBy10(100));
+
+		console.log(" ================================ ");
+		console.log(" THE ENHANCEMENT OF MAGIC COUNTER ");
+		console.log(" ================================ ");
+
+		function makeCounterEnh() {
+			var count = 0;
+
+			return {
+				increment: function() {
+					count += 1;
+					return count;
+				}
+			}
+		}
+
+		var counterObj = makeCounterEnh();
+		console.log(counterObj.increment());
+		console.log(counterObj.increment());
+		console.log(counterObj.increment());
+	</script>
+</body>
+</html>
