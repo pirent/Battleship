@@ -85,6 +85,24 @@
 		console.log(counterObj.increment());
 		console.log(counterObj.increment());
 		console.log(counterObj.increment());
+
+		/**
+		* Instead of returning a function from a function to create a closure, 
+		* it can be also created when having a reference to a function that has
+		* free variable and that function is executed outside of the context in
+		* which it was created.
+		*/
+		console.log(" ================================ ");
+		console.log(" MAKE TIMER ");
+		console.log(" ================================ ");
+
+		function makeTimer(doneMessage, n) {
+			window.setTimeout(function() {
+				alert(doneMessage);
+			}, n);
+		}
+
+		makeTimer("Cookies are done!", 1000);
 	</script>
 </body>
 </html>
