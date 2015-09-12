@@ -25,3 +25,27 @@ for (var i = 0; i < dogs.length; i += 1) {
 	console.log("Dog: " + dogs[i].name + " is a " + size + " " + dogs[i].breed);
 	dogs[i].bark();
 }
+
+// ================================
+// INDEPENDENT METHODS
+// ================================
+fido.owner = "Bob";	// Can add a new property just by assigning it a vlua in our object
+delete fido.weight; // Or can get rid of a property by using the delete operator
+
+fido.trust = function(person) {
+	return (person === "Bob");
+};
+
+var notBite = fido.trust("Bob");
+
+// =================================
+// ARRAY OBJECT
+// =================================
+var arrayLiteral = [0, 1, 2];
+var arrayObject = new Array(3);
+arrayObject[0] = 0;
+arrayObject[1] = 1;
+arrayObject[2] = 2;
+
+console.log(arrayObject.reverse());
+console.log(arrayLiteral.reverse());

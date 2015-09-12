@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Dog Catcher</title>
+</head>
+<body>
+	<script type="text/javascript">
+		/**
+		* Return true if the object passed is a dog; and false otherwise
+		*/
+		function dogCatcher(obj) {
+			return (obj instanceof Dog);
+		}
+
+		function Cat(name, breed, weight) {
+			this.name = name;
+			this.breed = breed;
+			this.weight = weight;
+		}
+		var meow = new Cat('Meow', 'Siamese', 10);
+		var whiskers = new Cat('Whiskers', 'Mixed', 12);
+
+		var fido = {
+			name: 'Fido',
+			breed: 'Mixed',
+			weight: 38
+		};
+
+		function Dog(name, breed, weight) {
+			this.name = name;
+			this.breed = breed;
+			this.weight = weight;
+
+			this.bark = function() {
+				if (this.weight > 25) {
+					alert(this.name + " say Woof!");
+				}
+				else {
+					alert(this.name + " say Yip!");
+				}
+			};
+		}
+
+		var fluffy = new Dog("Fluffy", "Poodle", 30);
+		var spot = new Dog("Spot", "Chihuahua", 10);
+		var dogs = [meow, whiskers, fido, fluffy, spot];
+
+		for (var i = 0; i < dogs.length; i += 1) {
+			if (dogCatcher(dogs[i])) {
+				console.log(dogs[i].name + " is a dog!");
+			}
+		}
+	</script>
+</body>
+</html>

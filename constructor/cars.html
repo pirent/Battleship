@@ -6,15 +6,16 @@
 </head>
 <body>
 	<script type="text/javascript">
-		function Car(make, model, year, color, passengers, convertible, mileage, started) {
-			this.make = make;
-			this.model = model;
-			this.year = year;
-			this.color = color;
-			this.passengers = passengers;
-			this.convertible = convertible;
-			this.mileage = mileage;
-			this.started = started;
+		function Car(params) {
+			this.make = params.make;
+			this.model = params.model;
+			this.year = params.year;
+			this.color = params.color;
+			this.passengers = params.assengers;
+			this.convertible = params.convertible;
+			this.mileage = params.mileage;
+			this.started = false;
+
 			this.start = function() {
 				this.started = true;
 			};
@@ -31,11 +32,60 @@
 			}
 		}
 
-		var chevy = new Car('Chevy', 'Bel Air', 1957, 'red', 2, false, 1021, false);
-		var cadi = new Car('GM', 'Cadillac', 1955, 'tan', 5, false, 12892, false);
-		var fiat = new Car('Fiat', '500', 1957, 'Medium Blue', 2, false, 88000, false);
-		var taxi = new Car('Webville Motors', 'Taxi', 1955, 'yellow', 4, false, 281341, false);
-		var testCar = new Car('Webville Motors', 'Test Car', 2014, 'marine', 2, true, 21);
+		var chevyParams = {
+			make: 'Chevy',
+			model: 'Bel Air',
+			year: 1957,
+			color: 'red',
+			passengers: 2,
+			convertible: false,
+			mileage: 1021
+		};
+		var chevy = new Car(chevyParams);
+
+		var cadiParams = {
+			make: 'GM',
+			model: 'Cadillac',
+			year: 1955,
+			color: 'tan',
+			passengers: 5,
+			convertible: false,
+			mileage: 12892
+		};
+		var cadi = new Car(cadiParams);
+
+		var fiatParams = {
+			make: 'Fiat',
+			model: '500',
+			year: 1957,
+			color: 'Medium Blue',
+			passengers: 2,
+			convertible: false,
+			mileage: 88000
+		};
+		var fiat = new Car(fiatParams);
+
+		var taxiParams = {
+			make: 'Webville Motors',
+			model: 'Taxi',
+			year: 1955,
+			color: 'yellow',
+			passengers: 4,
+			convertible: false,
+			mileage: 281341
+		}
+		var taxi = new Car(taxiParams);
+
+		var testCarParams = {
+			make: 'Webvilee Motors',
+			model: 'Test Car',
+			year: 2014,
+			color: 'marine',
+			passengers: 2,
+			convertible: true,
+			mileage: 21
+		};
+		var testCar = new Car(testCarParams);
 
 		var cars = [chevy, cadi, taxi, fiat, testCar];
 
@@ -45,6 +95,39 @@
 			cars[i].drive();
 			cars[i].stop();
 		}
+
+		// ===============================================
+		function Dog(name, breed, weight) {
+			this.name = name;
+			this.breed = breed;
+			this.weight = weight;
+
+			this.bark = function() {
+				if (this.weight > 25) {
+					alert(this.name + " says Woof!");
+				}
+				else {
+					alert(this.name + " says Yip!");
+				}
+			};
+		}
+
+		// ==================================================
+		var limoParams = {
+			make: 'Webville Motors',
+			model: 'limo',
+			year: 1983,
+			color: 'black',
+			passengers: 12,
+			convertible: true,
+			mileage: 21120
+		};
+
+		var limo = new Car(limoParams);
+		var limoDog = new Dog("Rhapsody In Blue", "Poodle", 40);
+
+		console.log(limo.make + " " + limo.model + " is a " + typeof limo);
+		console.log(limoDog.name + " is a " + typeof limoDog);
 	</script>
 </body>
 </html>
