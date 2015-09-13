@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>String cliche</title>
+</head>
+<body>
+	<script type="text/javascript">
+		String.prototype.cliche = function() {
+			var cliche = ["lock and load", "touch base", "open the kimono"];
+
+			for (var i = 0; i < cliche.length; i++) {
+				var index = this.indexOf(cliche[i]);
+				if (index >= 0) {
+					return true;
+				}
+			}
+			return false;
+		};
+
+		var sentences = [
+			"I'll send my car around to pick you up.",
+			"Let's touch base in the morning and see where we are",
+			"We don't want to open the kimono, we just want to inform them."
+		];
+
+		for (var i = 0; i < sentences.length; i++) {
+			var pharse = sentences[i];
+			if (pharse.cliche()) {
+				console.log("CLICHE ALERT: " + pharse);
+			}
+		}
+
+		// ===============================================
+		String.prototype.palindrome = function() {
+			var start = 0;
+			var end = this.length - 1;
+			while (start < end) {
+				if (this.charAt(start) !== this.charAt(end)) {
+					return false;
+				}
+				else {
+					start++;
+					end--;
+				}
+			}
+			return true;
+		};
+
+		var palindromeString = "abcba";
+		console.log(palindromeString.palindrome());
+	</script>
+</body>
